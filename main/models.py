@@ -45,20 +45,20 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
-    tagline = models.CharField(max_length=100,default='')
+    tagline = models.CharField(max_length=100, default='')
     description = models.CharField(max_length=255)
     poster = models.ImageField(upload_to='movies/')
-    year = models.PositiveSmallIntegerField('date of release',default=2010)
+    year = models.PositiveSmallIntegerField('date of release', default=2010)
     country = models.CharField(max_length=150)
     directors = models.ManyToManyField(Actor, verbose_name='directors', related_name='film_directors')
-    actors = models.ManyToManyField(Actor,verbose_name='actors',related_name='film_actors')
+    actors = models.ManyToManyField(Actor, verbose_name='actors', related_name='film_actors')
     genres = models.ManyToManyField(Genre)
     world_premiere = models.DateField(default=datetime.date.today)
     budget = models.PositiveSmallIntegerField(default=0, help_text='specify amount in dollars')
-    fees_in_usa = models.PositiveSmallIntegerField(default=0,help_text='specify amount in dollars')
-    fees_in_world = models.PositiveSmallIntegerField(default=0,help_text='specify amount in dollars')
+    fees_in_usa = models.PositiveSmallIntegerField(default=0, help_text='specify amount in dollars')
+    fees_in_world = models.PositiveSmallIntegerField(default=0, help_text='specify amount in dollars')
     category = models.ForeignKey(CategoryModel, on_delete=models.SET_NULL, null=True)
-    url = models.SlugField(max_length=160,unique=True)
+    url = models.SlugField(max_length=160, unique=True)
     draft = models.BooleanField(default=False)
 
     def __str__(self):
@@ -83,16 +83,15 @@ class MovieShots(models.Model):
         verbose_name_plural = 'Shots from Movie'
 
 
-
-class RatingStart(models.Model)
+class RatingStart(models.Model):
     value = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
-        return  self.value
+        return self.value
 
 
 class Rating(models.Model):
-    ip = models.CharField('ip address',max_length=15)
+    ip = models.CharField('ip address', max_length=15)
     star = models.ForeignKey(RatingStart, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
@@ -104,8 +103,8 @@ class Reviews(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=100)
     text = models.TextField()
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True,null=True)
-    movie = models.ForeignKey(Movie,on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
     def __str__(self):
         return f'{self.name} - {self.movie}'
-    
