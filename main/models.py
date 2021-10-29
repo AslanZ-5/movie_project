@@ -59,4 +59,53 @@ class Movie(models.Model):
     fees_in_world = models.PositiveSmallIntegerField(default=0,help_text='specify amount in dollars')
     category = models.ForeignKey(CategoryModel, on_delete=models.SET_NULL, null=True)
     url = models.SlugField(max_length=160,unique=True)
+    draft = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Movie'
+        verbose_name_plural = 'Movies'
+
+
+class MovieShots(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+    image = models.ImageField(upload_to='movie_shots/')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Shot from Movie'
+        verbose_name_plural = 'Shots from Movie'
+
+
+
+class RatingStart(models.Model)
+    value = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return  self.value
+
+
+class Rating(models.Model):
+    ip = models.CharField('ip address',max_length=15)
+    star = models.ForeignKey(RatingStart, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.star}  {self.movie}'
+
+
+class Reviews(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=100)
+    text = models.TextField()
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True,null=True)
+    movie = models.ForeignKey(Movie,on_delete=models.CASCADE)
+    def __str__(self):
+        return f'{self.name} - {self.movie}'
     
