@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 <head>
     <!-- //Meta tag Keywords -->
@@ -7,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- //Meta tag Keywords -->
     <!-- Custom-Files -->
-    <link rel="stylesheet" href="./bundles/css/bootstrap.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}">
     <!-- Bootstrap-Core-CSS -->
     <!--/ Style-CSS -->
-    <link rel="stylesheet" href="./bundles/css/style.css" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" type="text/css" media="all">
     <!--// Style-CSS -->
     <!-- font-awesome-icons -->
-    <link href="./bundles/css/font-awesome.css" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
     <!-- //font-awesome-icons -->
   <!-- /Fonts -->
     <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700" rel="stylesheet">
@@ -24,7 +25,7 @@
 <body>
 
     <div id="page" class="page"><!-- mian-content -->
-        <div class="main-banner bg bg1" id="home" style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image: url(&quot;bundles/single-post-pic.jpg&quot;);">
+        <div class="main-banner bg bg1" id="home" style="background-color: rgba(0, 0, 0, 0); margin-top: 0px; background-image: url(&quot;static/single-post-pic.jpg&quot;);">
             <!-- header -->
             <header class="header">
                 <div class="container-fluid px-lg-5">
@@ -262,19 +263,20 @@
                     <!-- product right -->
                     <div class="left-ads-display col-lg-9">
                         <div class="row">
+                            {% for movie in movies %}
                             <div class="col-md-4 product-men">
                                 <div class="product-shoe-info editContent text-center mt-lg-4" >
                                     <div class="men-thumb-item">
-                                        <img src="bundles/images/s1.jpg" class="img-fluid" alt="" >
+                                        <img src="{{movie.poster.url}}" class="img-fluid" alt="" >
                                     </div>
                                     <div class="item-info-product">
                                         <h4 class="">
-                                            <a href="moviesingle.html" class="editContent" >К звездам</a>
+                                            <a href="moviesingle.html" class="editContent" >{{movie.title}}</a>
                                         </h4>
 
                                         <div class="product_price">
                                             <div class="grid-price">
-                                                <span class="money editContent" >«The Game Begins»</span>
+                                                <span class="money editContent" >{{movie.tagline}}</span>
                                             </div>
                                         </div>
                                         <ul class="stars">
@@ -287,207 +289,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s2.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html" class="editContent" >Холодное сердце 2</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price">
-                                                <span class="money editContent" >Слогана нет</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s3.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html" class="editContent" >Джокер</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price">
-                                                <span class="money editContent" >«Сделай счастливое лицо»</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s4.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html">РЭМБО: ПОСЛЕДНЯЯ КРОВЬ</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price">
-                                                <span class="money editContent" >«Настоящий герой бьётся до конца»</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s5.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html" class="editContent" >ТЕРМИНАТОР: ТЕМНЫЕ СУДЬБЫ</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price">
-                                                <span class="money editContent" >«Welcome to the Day after Judgment Day»</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s6.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html" class="editContent" >Angry Birds 2 в кино</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price">
-                                                <span class="money editContent" >«Заклятые друзья?»</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s7.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html" class="editContent" >История игрушек 4</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price">
-                                                <span class="money editContent" >«Собирайтесь в дорогу»</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s8.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html" class="editContent" >Клаус</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price ">
-                                                <span class="money ">«Discover the friendship that launched a legend»</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 product-men">
-                                <div class="product-shoe-info editContent text-center mt-lg-4" >
-                                    <div class="men-thumb-item">
-                                        <img src="bundles/images/s9.jpg" class="img-fluid" alt="" >
-                                    </div>
-                                    <div class="item-info-product">
-                                        <h4>
-                                            <a href="moviesingle.html" class="editContent" >Король Лев</a>
-                                        </h4>
-
-                                        <div class="product_price">
-                                            <div class="grid-price ">
-                                                <span class="money ">«The King Has Returned»</span>
-                                            </div>
-                                        </div>
-                                        <ul class="stars">
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true" ></span></a></li>
-                                            <li><a href="#"><span class="fa fa-star-o" aria-hidden="true" ></span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            {% endfor %}
                         <!--<div class="grid-img-right mt-4 text-right bg bg1" >
                             <span class="money editContent" >Flat 50% Off</span>
                             <a href="moviesingle.html" class="btn" >Now</a>
