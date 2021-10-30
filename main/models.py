@@ -46,7 +46,7 @@ class Genre(models.Model):
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     tagline = models.CharField(max_length=100, default='')
-    description = models.CharField(max_length=255)
+    description = models.TextField()
     poster = models.ImageField(upload_to='movies/')
     year = models.PositiveSmallIntegerField('date of release', default=2010)
     country = models.CharField(max_length=150)
