@@ -120,7 +120,7 @@
                             <div class="contact-single">
                                 <h3 class="editContent" style="outline: none; cursor: inherit;">
                                     <span class="sub-tittle editContent"
-                                          style="outline: none; cursor: inherit;">02</span>Оставить отзыв</h3>
+                                          style="outline: none; cursor: inherit; font-size:20px;">{{movie.reviews_set.count}}</span>Оставить отзыв</h3>
                                 <form action="{% url 'add_review' movie.id %}" method="POST" class="mt-4" id="FormReview">
                                    {% csrf_token %}
                                     <input type="hidden" name="parent" id="contactparent" value="">
@@ -158,11 +158,13 @@
                             </div>
                             <!--  //contact form grid ends here -->
                         </div>
+
                         {% for review in movie.reviews_set.all %}
                         <div class="media py-5">
-                            <img src="bundles/images/te2.jpg" class="mr-3 img-fluid" alt="image"
+                            <img src="{% static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image"
                                  style="outline: none; cursor: inherit;">
                             <div class="media-body mt-4">
+                                <span></span>
                                 <h5 class="mt-0 editContent"
                                     style="outline: none; cursor: inherit;">{{review.name}}</h5>
 
