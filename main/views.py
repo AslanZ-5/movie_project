@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from .forms import ReviewForm
 from .models import Movie,Reviews
 from django.views.generic import (
     ListView,
@@ -34,9 +34,12 @@ class MoviesDetailView(DetailView):
 
 class AddReview(View):
     def post(self, request, id):
-        query = request.POST
-        print(id)
-        print(query)
-        review = Reviews.objects.create(name=query['name'],email=query['email'],text=query['text'],movie_id=id)
-        review.save()
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.movie_id = id
+            form.save()
+
+        # review = Reviews.objects.create(name=query['name'],email=query['email'],text=query['text'],movie_id=id)
+        # review.save()
         return redirect('/')
