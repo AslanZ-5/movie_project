@@ -11,6 +11,6 @@ class MoviesView(View):
 
 
 class MoviesDetailView(View):
-    def get(self, request, pk):
-        movie = Movie.objects.get(pk=pk)
+    def get(self, request, slug):
+        movie = Movie.objects.get(url=slug)
         return render(request, 'main/movie_detail.html', {'movie': movie})
