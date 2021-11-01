@@ -54,6 +54,7 @@
                                               style="outline: none; cursor: inherit;">5.0</span>
                                     </a>
                                 </li>
+                            </ul>
                                 <div class="share-desc">
                                     <div class="share">
                                         <h4 class="editContent"
@@ -187,5 +188,11 @@
                         </div>
                     </div>
                 </div>
+<script>
+    function addReview(name,id){
+    document.getElementById("contactparent").value = id;
+    document.getElementById("contactcomment").innerText = `${name},`
+    }
+</script>
   {% endblock %}
 
