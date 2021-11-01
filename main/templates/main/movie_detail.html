@@ -159,7 +159,7 @@
                             <!--  //contact form grid ends here -->
                         </div>
 
-                        {% for review in movie.reviews_set.all %}
+                        {% for review in movie.review_get %}
                         <div class="media py-5">
                             <img src="{% static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image"
                                  style="outline: none; cursor: inherit;">
