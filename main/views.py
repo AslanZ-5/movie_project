@@ -35,6 +35,7 @@ class MoviesDetailView(DetailView):
 class AddReview(View):
     def post(self, request, id):
         form = ReviewForm(request.POST)
+        movie = Movie.objects.get(id=id)
         if form.is_valid():
             form = form.save(commit=False)
             form.movie_id = id
@@ -42,4 +43,4 @@ class AddReview(View):
 
         # review = Reviews.objects.create(name=query['name'],email=query['email'],text=query['text'],movie_id=id)
         # review.save()
-        return redirect('/')
+        return redirect(movie.get_absolute_url())
