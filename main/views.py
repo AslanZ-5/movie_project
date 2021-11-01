@@ -1,13 +1,20 @@
 from django.shortcuts import render
 from .models import Movie
+from django.views.generic import ListView
 from django.views.generic.base import View
 
 
-class MoviesView(View):
+class MoviesView(ListView):
+    model = Movie
+    template_name = 'main/movies.html'
+    
 
-    def get(self, request):
-        movies = Movie.objects.all()
-        return render(request, 'main/movies.html', {'movies': movies})
+
+# class MoviesView(View):
+#
+#     def get(self, request):
+#         movies = Movie.objects.all()
+#         return render(request, 'main/movies.html', {'movies': movies})
 
 
 class MoviesDetailView(View):
