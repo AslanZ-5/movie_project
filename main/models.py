@@ -69,7 +69,7 @@ class Movie(models.Model):
         return reverse('movie_detail', kwargs={'slug': self.url})
 
     def review_get(self):
-        return self.reviews_set.filter(parent=None)
+        return self.reviews_set.filter(parent__isnull=True)
 
     class Meta:
         verbose_name = 'Movie'
