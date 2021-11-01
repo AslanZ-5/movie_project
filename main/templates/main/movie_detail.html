@@ -161,31 +161,33 @@
 
                         {% for review in movie.review_get %}
                         <div class="media py-5">
-                            <img src="{% static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image"
+                            <img src="{%static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image"
                                  style="outline: none; cursor: inherit;">
                             <div class="media-body mt-4">
-                                <span></span>
                                 <h5 class="mt-0 editContent"
                                     style="outline: none; cursor: inherit;">{{review.name}}</h5>
-
                                 <p class="mt-2 editContent" style="outline: none; cursor: inherit;">
-                                    {{ review.text}}
+                                    {{review.text}}
                                 </p>
-                                <a href="#FormReview" onclick="addReview('{{review.name}}', '{{review.id}}')">Reply</a>
+                                 <a href="#FormReview" onclick="addReview('{{review.name}}', '{{review.id}}')">Reply</a>
                                 <div class="media mt-5 editContent"
                                      style="outline: none; cursor: inherit;">
                                     <a class="pr-3" href="#">
-                                        <img src="bundles/images/te1.jpg" class="img-fluid "
+                                        <img src="{% static 'images/te1.jpg' %}" class="img-fluid "
                                              alt="image" style="outline: none; cursor: inherit;">
                                     </a>
+                                    {% for rew in review.reviews_set.all%}
                                     <div class="media-body">
                                         <h5 class="mt-0 editContent"
-                                            style="outline: none; cursor: inherit;"></h5>
+                                            style="outline: none; cursor: inherit;">{{rew.name}}</h5>
                                         <p class="mt-2 editContent"
-                                           style="outline: none; cursor: inherit;"> .</p>
+                                           style="outline: none; cursor: inherit;"> {{rew.text}}</p>
+                                         <a href="#FormReview" onclick="addReview('{{rew.name}}', '{{rew.id}}')">Reply</a>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
+                        </div>
                             {% endfor %}
                         </div>
                     </div>
