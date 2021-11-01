@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from .models import Movie
-from django.views.generic import ListView
+from django.views.generic import (
+    ListView,
+    DetailView,
+)
+
 from django.views.generic.base import View
 
 
 class MoviesView(ListView):
     model = Movie
     template_name = 'main/movies.html'
-    
 
 
 # class MoviesView(View):
@@ -17,7 +20,11 @@ class MoviesView(ListView):
 #         return render(request, 'main/movies.html', {'movies': movies})
 
 
-class MoviesDetailView(View):
-    def get(self, request, slug):
-        movie = Movie.objects.get(url=slug)
-        return render(request, 'main/movie_detail.html', {'movie': movie})
+class MoviesDetailView(DetailView):
+    model = Movie
+    slug_field = 'url'
+
+# class MoviesDetailView(View):
+#     def get(self, request, slug):
+#         movie = Movie.objects.get(url=slug)
+#         return render(request, 'main/movie_detail.html', {'movie': movie})
