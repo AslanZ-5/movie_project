@@ -1,6 +1,16 @@
 from django.contrib import admin
 from .models import *
 from django.utils.safestring import mark_safe
+from ckeditor_uploader.widgets  import CKEditorUploadingWidget
+from django import forms
+
+
+class PostAdminForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Movie
+        fields = '__all__'
 
 
 @admin.register(CategoryModel)
@@ -20,7 +30,7 @@ class ShotsLine(admin.StackedInline):
     extra = 1
     readonly_fields = ('get_image',)
 
-    def get_image(self,obj):
+    def get_image(self, obj):
         return mark_safe(f'<img src="{obj.image.url}" style="width:260px;height:200px;"')
 
     get_image.short_description = 'Image'
@@ -35,13 +45,14 @@ class MovieAdmin(admin.ModelAdmin):
     inlines = [ReviewLine, ShotsLine]
     save_on_top = True
     save_as = True
+    form = PostAdminForm
     list_editable = ('draft',)
     fieldsets = (
         (None, {
             'fields': (('title', 'tagline'),)
         }),
         (None, {
-            'fields': ('description', ('poster','get_image'))
+            'fields': ('description', ('poster', 'get_image'))
         }),
         (None, {
             'fields': (('year', 'country', 'world_premiere'),)
@@ -59,11 +70,11 @@ class MovieAdmin(admin.ModelAdmin):
         })
 
     )
-    def get_image(self,obj):
+
+    def get_image(self, obj):
         return mark_safe(f'<img src="{obj.poster.url}" style="width:160px;height:150px;"')
 
     get_image.short_description = 'Poster'
-
 
 
 @admin.register(Reviews)
