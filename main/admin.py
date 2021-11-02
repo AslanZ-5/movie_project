@@ -73,6 +73,12 @@ class ActorAdmin(admin.ModelAdmin):
 @admin.register(MovieShots)
 class MovieShotsAdmin(admin.ModelAdmin):
     list_display = ['title','movie' ]
+    readonly_fields = ('get_image',)
+
+    def get_image(self, obj):
+        return mark_safe(f'<img src="{obj.image.url}" style="width:260px;height:200px;"')
+
+    get_image.short_description = 'Image'
 
 
 @admin.register(Rating)
