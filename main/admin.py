@@ -6,7 +6,7 @@ from django import forms
 
 
 class PostAdminForm(forms.ModelForm):
-    description = forms.CharField(widget=CKEditorUploadingWidget())
+    description = forms.CharField(label='Description',widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Movie
