@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ReviewForm
-from .models import Movie,Reviews
+from .models import Movie, Reviews, CategoryModel
 from django.views.generic import (
     ListView,
     DetailView,
@@ -14,6 +14,10 @@ class MoviesView(ListView):
     template_name = 'main/movies.html'
     queryset = Movie.objects.filter(draft=False)
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = CategoryModel.objects.all()
+        return context
 
 
 # class MoviesView(View):
@@ -26,6 +30,12 @@ class MoviesView(ListView):
 class MoviesDetailView(DetailView):
     model = Movie
     slug_field = 'url'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = CategoryModel.objects.all()
+        return context
+
 
 
 # class MoviesDetailView(View):
@@ -40,7 +50,7 @@ class AddReview(View):
         movie = Movie.objects.get(id=id)
         if form.is_valid():
             form = form.save(commit=False)
-            if request.POST.get('parent',None):
+            if request.POST.get('parent', None):
                 form.parent_id = int(request.POST.get('parent'))
             form.movie_id = id
             form.save()
