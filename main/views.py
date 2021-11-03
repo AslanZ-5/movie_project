@@ -12,6 +12,8 @@ from django.views.generic.base import View
 class MoviesView(ListView):
     model = Movie
     template_name = 'main/movies.html'
+    queryset = Movie.objects.filter(draft=False)
+
 
 
 # class MoviesView(View):

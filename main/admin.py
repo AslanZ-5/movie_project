@@ -1,12 +1,12 @@
 from django.contrib import admin
 from .models import *
 from django.utils.safestring import mark_safe
-from ckeditor_uploader.widgets  import CKEditorUploadingWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
 
 class PostAdminForm(forms.ModelForm):
-    description = forms.CharField(label='Description',widget=CKEditorUploadingWidget())
+    description = forms.CharField(label='Description', widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Movie
@@ -44,6 +44,7 @@ class MovieAdmin(admin.ModelAdmin):
     search_fields = ('title', 'category__name')
     inlines = [ReviewLine, ShotsLine]
     save_on_top = True
+    actions = ['unpublish','publish']
     save_as = True
     form = PostAdminForm
     list_editable = ('draft',)
@@ -74,7 +75,28 @@ class MovieAdmin(admin.ModelAdmin):
     def get_image(self, obj):
         return mark_safe(f'<img src="{obj.poster.url}" style="width:160px;height:150px;"')
 
+    def unpublish(self, request, queryset):
+        row_update = queryset.update(draft=True)
+        if row_update == '1':
+            message_bit = '1 file has been updated'
+        else:
+            message_bit = f'{row_update} files has been updated'
+        self.message_user(request, f'{message_bit}')
+
     get_image.short_description = 'Poster'
+
+    def publish(self, request, queryset):
+        row_update = queryset.update(draft=False)
+        if row_update == '1':
+            message_bit = '1 file has been updated'
+        else:
+            message_bit = f'{row_update} files has been updated'
+        self.message_user(request, f'{message_bit}')
+
+    get_image.short_description = 'Poster'
+    publish.short_description = 'To publish'
+    unpublish.short_description = 'Un publish'
+    publish.allowed_permissions = ('change',)
 
 
 @admin.register(Reviews)
