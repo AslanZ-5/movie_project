@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ReviewForm
-from .models import Movie, Reviews, CategoryModel
+from .models import Movie, Reviews, CategoryModel, Actor
 from django.views.generic import (
     ListView,
     DetailView,
@@ -15,8 +15,6 @@ class MoviesView(ListView):
     queryset = Movie.objects.filter(draft=False)
 
 
-
-
 # class MoviesView(View):
 #
 #     def get(self, request):
@@ -27,9 +25,6 @@ class MoviesView(ListView):
 class MoviesDetailView(DetailView):
     model = Movie
     slug_field = 'url'
-
-
-
 
 
 # class MoviesDetailView(View):
@@ -52,3 +47,25 @@ class AddReview(View):
         # review = Reviews.objects.create(name=query['name'],email=query['email'],text=query['text'],movie_id=id)
         # review.save()
         return redirect(movie.get_absolute_url())
+
+
+class ActorsView(ListView):
+    model = Actor
+    template_name = 'main/actors.html'
+
+
+class ActorDetailView(DetailView):
+    model = Actor
+    slug_field = 'name'
+
+
+    def get_object(self, queryset=None):
+
+        if queryset is None:
+            queryset = self.get_queryset()
+        slug = self.kwargs.get('slug')
+        unslug = slug.replace('-', ' ')
+        if slug:
+            queryset = queryset.filter(**{self.slug_field: unslug})
+
+        return queryset.get()

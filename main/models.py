@@ -23,12 +23,18 @@ class Actor(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='actors/')
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         verbose_name = 'Actor and director'
         verbose_name_plural = 'Actors and directors'
+
+    def __str__(self):
+        return str(self.name).replace(' ', '-')
+
+    def slugfy_name(self):
+        return str(self.name).replace(' ', '-')
+
+    def get_absolute_url(self):
+        return reverse('actor_detail', kwargs={'slug': self.slugfy_name()})
 
 
 class Genre(models.Model):

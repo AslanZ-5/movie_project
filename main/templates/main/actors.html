@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="left-ads-display col-lg-8">
+    {% for actor in object_list %}
+    <div class="row">
+        <div class="">
+            <img src="{{actor.image.url}}" class="rounded-circle" style="width:250px;height:250px;" alt="">
+        </div>
+        <div class="desc1-right col-md-6 pl-lg-4">
+            <h3 class="editContent" style="outline: none; cursor: inherit;">
+            </h3>
+            <a href="{{actor.get_absolute_url}}"><h5 class="editContent">{{actor.name}}</h5></a>
+            <ul>
+                <li style="list-style: none"><span><b>Age:</b> {{actor.age}}</span></li>
+                <li style="list-style: none"><span><b>Biography:</b> {{actor.description}}</span>
+                </li>
+            </ul>
+            <div class="share-desc">
+                <div class="share">
+                    <h4 class="editContent"
+                        style="outline: none; cursor: inherit;">
+                        Share:</h4>
+                    <ul class="w3layouts_social_list list-unstyled">
+                        <li>
+                            <a href="#" class="w3pvt_facebook editContent"
+                               style="outline: none; cursor: inherit;">
+                                                <span class="fa fa-facebook-f"
+                                                      style="outline: none; cursor: inherit;"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="w3pvt_twitter editContent"
+                               style="outline: none; cursor: inherit;">
+                                                <span class="fa fa-twitter"
+                                                      style="outline: none; cursor: inherit;"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="w3pvt_dribble editContent"
+                               style="outline: none; cursor: inherit;">
+                                                <span class="fa fa-dribbble"
+                                                      style="outline: none; cursor: inherit;"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
