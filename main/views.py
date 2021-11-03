@@ -14,10 +14,7 @@ class MoviesView(ListView):
     template_name = 'main/movies.html'
     queryset = Movie.objects.filter(draft=False)
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = CategoryModel.objects.all()
-        return context
+
 
 
 # class MoviesView(View):
@@ -31,10 +28,7 @@ class MoviesDetailView(DetailView):
     model = Movie
     slug_field = 'url'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = CategoryModel.objects.all()
-        return context
+
 
 
 
