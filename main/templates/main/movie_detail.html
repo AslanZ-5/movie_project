@@ -38,11 +38,29 @@
                                     <span><b>fees_in_usa:</b> {{movie.fees_in_usa}}</span></li>
                                 <li style="list-style: none"><span><b>fees_in_world:</b> {{movie.fees_in_world}}</span>
                                 </li>
+
+                                <li>
+                    <form action="{% url 'add_rating' %}" method="post" name="rating">
+                        <b>Rating</b>
+                        {% csrf_token %}
+                        <input type="hidden" value="{{object.id}}" name="movie">
+                        <span class="rating">
+                                            {% for k,v in star_form.fields.star.choices %}
+                            <input type="radio" id="rating{{v}}" name="star" value="{{v}}">
+                            <label for="rating{{v}}">{{k}}</label>
+
+                                            {% endfor %}
+
+                        </span>
+                        <button type="submit"> add</button>
+                    </form>
+                </li>
+
                                 <li style="list-style: none">
                                     <a href="#"><b>Рейтинг:</b>
                                     <span class="fa fa-star" aria-hidden="true"
                                           style="outline: none; cursor: inherit;"></span>
-                                        <span class="fa fa-star" aria-hidden="true"
+                                        <span class="fa fa-star" aria-hidden="False"
                                               style="outline: none; cursor: inherit;"></span>
                                         <span class="fa fa-star" aria-hidden="true"
                                               style="outline: none; cursor: inherit;"></span>

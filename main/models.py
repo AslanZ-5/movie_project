@@ -100,7 +100,10 @@ class RatingStart(models.Model):
     value = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
-        return self.value
+        return f'{self.value}'
+
+    class Meta:
+        ordering = ['value']
 
 
 class Rating(models.Model):
