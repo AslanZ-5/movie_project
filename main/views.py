@@ -5,6 +5,7 @@ from django.views.generic import (
     ListView,
     DetailView,
 )
+from django.db.models import Q
 
 from django.views.generic.base import View
 
@@ -80,3 +81,12 @@ class ActorDetailView(GenreYear, DetailView):
             queryset = queryset.filter(**{self.slug_field: unslug})
 
         return queryset.get()
+
+
+class FilterMoviesView(GenreYear, ListView):
+    template_name = 'main/movies.html'
+
+    def get_queryset(self):
+        queryset = Movie.objects.filter(Q(year__in=self.request.GET.getlist('year'))|
+                                        Q(genres__in=self.request.GET.getlist('genre')))
+        return queryset
