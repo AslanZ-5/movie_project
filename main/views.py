@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ReviewForm
-from .models import Movie, Reviews, CategoryModel, Actor
+from .models import Movie, Reviews, CategoryModel, Actor, Genre
 from django.views.generic import (
     ListView,
     DetailView,
@@ -9,7 +9,19 @@ from django.views.generic import (
 from django.views.generic.base import View
 
 
-class MoviesView(ListView):
+# This class has data getting methods
+# after inheriting to View class we'll get access
+# to the methods in html with context data "view"
+# example: view.get_genres
+class GenreYear:
+    def get_genres(self):
+        return Genre.objects.all()
+
+    def get_years(self):
+        return Movie.objects.filter(draft=False).values('year')
+
+
+class MoviesView(GenreYear, ListView):
     model = Movie
     template_name = 'main/movies.html'
     queryset = Movie.objects.filter(draft=False)
@@ -22,7 +34,7 @@ class MoviesView(ListView):
 #         return render(request, 'main/movies.html', {'movies': movies})
 
 
-class MoviesDetailView(DetailView):
+class MoviesDetailView(GenreYear, DetailView):
     model = Movie
     slug_field = 'url'
 
@@ -33,7 +45,7 @@ class MoviesDetailView(DetailView):
 #         return render(request, 'main/movie_detail.html', {'movie': movie})
 
 
-class AddReview(View):
+class AddReview(GenreYear, View):
     def post(self, request, id):
         form = ReviewForm(request.POST)
         movie = Movie.objects.get(id=id)
@@ -49,15 +61,14 @@ class AddReview(View):
         return redirect(movie.get_absolute_url())
 
 
-class ActorsView(ListView):
+class ActorsView(GenreYear, ListView):
     model = Actor
     template_name = 'main/actors.html'
 
 
-class ActorDetailView(DetailView):
+class ActorDetailView(GenreYear, DetailView):
     model = Actor
     slug_field = 'name'
-
 
     def get_object(self, queryset=None):
 
