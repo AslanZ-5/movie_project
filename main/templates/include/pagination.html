@@ -1,0 +1,52 @@
+<br><br><br><br><br><br><br>
+<div class="left-ads-display col-lg-5">
+{% if is_paginated %}
+<nav aria-label="...">
+  <ul class="pagination">
+      {% if page_obj.has_previous %}
+    <li class="page-item ">
+      <a class="page-link" href="?{{genre}}{{year}}page={{page_obj.previous_page_number}}" tabindex="-1">Previous</a>
+    </li>
+     <li class="page-item ">
+      <a class="page-link" href="?{{genre}}{{year}}page=1" tabindex="-1">First</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">First</a>
+    </li>
+      {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+    <li class="page-item active">
+      <a class="page-link" href="?{{genre}}{{year}}page={{num}}">{{num}} <span class="sr-only">(current)</span></a>
+    </li>
+
+      {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+          <li class="page-item"><a class="page-link" href="?{{genre}}{{year}}page={{num}}">{{num}}</a></li>
+      {% endif %}
+
+      {% endfor %}
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?{{genre}}{{year}}page={{page_obj.next_page_number}}" tabindex="-1">Next</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="?{{genre}}{{year}}page={{page_obj.num_pages}}" tabindex="-1">Last</a>
+    </li>
+    {% else %}
+      <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Next</a>
+    </li>
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Last</a>
+    </li>
+    {% endif %}
+
+
+  </ul>
+</nav>
+{% endif %}
+</div>
