@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'snowpenguin.django.recaptcha3',
     'django.contrib.sites',
-    'django.contrib.flatpages'
+    'django.contrib.flatpages',
+    'contact'
 
 ]
 
