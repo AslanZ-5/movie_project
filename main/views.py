@@ -136,4 +136,7 @@ class SearchMovie(ListView):
         queryset = Movie.objects.filter(title__icontains=self.request.GET.get('q'))
         return queryset
 
-    
+    def get_context_data(self, *args,**kwargs):
+        context = super().get_context_data(*args,**kwargs)
+        context['q'] = f'q={self.request.GET.get("q")}&'
+        return context
