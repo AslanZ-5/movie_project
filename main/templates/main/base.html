@@ -60,9 +60,20 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        <li><a href="contact.html"
+                        {% if user.is_authenticated %}
+                        <spam>{{user.username}}</spam>
+                        <li><a href="{% url 'account_logout' %}"
+                               style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Выход</a>
+                        </li>
+                        {% else %}
+                         <li><a href="{% url 'account_login' %}"
                                style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Вход</a>
                         </li>
+
+                        <li><a href="{% url 'account_signup' %}"
+                               style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">SignUp</a>
+                        </li>
+                        {% endif %}
                         <li>
                             <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                                 <input name="next" type="hidden" value="{{ redirect_to }}">

@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'snowpenguin.django.recaptcha3',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'contact'
+    'contact',
+    'allauth',
+    'allauth.account',
 
 ]
 
@@ -89,6 +91,10 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -120,7 +126,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 gettext = lambda s: s
 LANGUAGES = (
     ('en', gettext('English')),
@@ -147,6 +152,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -196,7 +206,7 @@ CKEDITOR_CONFIGS = {
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
+            'uploadimage',  # the upload image feature
             # your extra plugins here
             'div',
             'autolink',
