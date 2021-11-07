@@ -1,5 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 
@@ -13,10 +14,10 @@
                                 {{movie.title}}</h3>
                             <h5 class="editContent">{{movie.tagline}}</h5>
                             <ul>
-                                <li style="list-style: none"><span><b>Year:</b> {{movie.year}}</span></li>
+                                <li style="list-style: none"><span><b>{% trans Год %}:</b> {{movie.year}}</span>
                                 <li style="list-style: none"><span><b>Country:</b> {{movie.country}}</span>
                                 </li>
-                                <li style="list-style: none"><span><b>Slogan:</b>{{movie.tagline}}</span>
+                                <li style="list-style: none"><span><b>Slogan:</b >{{movie.tagline}}</span>
                                 </li>
                                 <li style="list-style: none">
                                     <span><b>Режиссер:</b>{% for director in movie.directors.all %}

@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -122,8 +123,8 @@ USE_TZ = True
 
 gettext = lambda s: s
 LANGUAGES = (
-    ('ru', gettext('Russia')),
     ('en', gettext('English')),
+    ('ru', gettext('Russia')),
 )
 
 # Static files (CSS, JavaScript, Images)

@@ -3,10 +3,14 @@ from .models import *
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
+from modeltranslation.admin import TranslationAdmin
+
 
 
 class PostAdminForm(forms.ModelForm):
-    description = forms.CharField(label='Description', widget=CKEditorUploadingWidget())
+    description_en = forms.CharField(label="description_EN", widget=CKEditorUploadingWidget())
+    description_ru = forms.CharField(label="description_RU", widget=CKEditorUploadingWidget())
+
 
     class Meta:
         model = Movie
@@ -14,7 +18,7 @@ class PostAdminForm(forms.ModelForm):
 
 
 @admin.register(CategoryModel)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ['id', 'name', 'url']
     list_display_links = ['id', 'name']
 
@@ -37,7 +41,7 @@ class ShotsLine(admin.StackedInline):
 
 
 @admin.register(Movie)
-class MovieAdmin(admin.ModelAdmin):
+class MovieAdmin(TranslationAdmin):
     list_display = ['title', 'category', 'url', 'draft']
     list_filter = ['category', 'year']
     readonly_fields = ('get_image',)
@@ -106,12 +110,12 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 @admin.register(Genre)
-class GenreAdmin(admin.ModelAdmin):
+class GenreAdmin(TranslationAdmin):
     list_display = ['name', 'url']
 
 
 @admin.register(Actor)
-class ActorAdmin(admin.ModelAdmin):
+class ActorAdmin(TranslationAdmin):
     list_display = ['name', 'age', 'get_image']
     readonly_fields = ('get_image',)
 
@@ -122,7 +126,7 @@ class ActorAdmin(admin.ModelAdmin):
 
 
 @admin.register(MovieShots)
-class MovieShotsAdmin(admin.ModelAdmin):
+class MovieShotsAdmin(TranslationAdmin):
     list_display = ['title', 'movie']
     readonly_fields = ('get_image',)
 
