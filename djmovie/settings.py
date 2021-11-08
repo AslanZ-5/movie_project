@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contact',
     'allauth',
     'allauth.account',
+    'rest_framework',
 
 ]
 
