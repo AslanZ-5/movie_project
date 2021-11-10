@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from main.models import Movie, Reviews, Rating
+from main.models import Movie, Reviews, Rating, Actor
 
 
 class FilterReviewListSerializer(serializers.ListSerializer):
@@ -17,9 +17,22 @@ class RecursiveSerializer(serializers.Serializer):
 class MovieListSerializer(serializers.ModelSerializer):
     rating_user = serializers.BooleanField()
     middle_star = serializers.FloatField()
+
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'tagline', 'category','rating_user','middle_star')
+        fields = ('id', 'title', 'tagline', 'category', 'rating_user', 'middle_star')
+
+
+class ActorListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = ('id', 'name', 'description')
+
+
+class ActorDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = ('id','name','age','description','image')
 
 
 class ReviewCreateSerializer(serializers.ModelSerializer):
@@ -39,8 +52,8 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 class MovieDetailSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(slug_field='name_en', read_only=True)
-    directors = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
-    actors = serializers.SlugRelatedField(slug_field='name_en', read_only=True, many=True)
+    directors = ActorDetailSerializer( read_only=True, many=True)
+    actors = ActorDetailSerializer( read_only=True, many=True)
     genres = serializers.SlugRelatedField(slug_field='name_en', read_only=True, many=True)
     reviews = ReviewSerializer(many=True)
 

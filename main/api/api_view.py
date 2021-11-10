@@ -1,16 +1,18 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from main.models import Movie
-from .serializers import MovieListSerializer, MovieDetailSerializer, ReviewCreateSerializer, CreateRatingSerializer
+from main.models import Movie, Actor
+from .serializers import MovieListSerializer, MovieDetailSerializer, ReviewCreateSerializer, CreateRatingSerializer, \
+    ActorListSerializer,ActorDetailSerializer
 from .service import get_client_ip
 from django.db.models import *
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 
 class MovieApiListView(APIView):
 
     def get(self, request):
         movies = Movie.objects.filter(draft=False).annotate(
-            rating_user = Count('ratings',filter=Q(ratings__ip=get_client_ip(request)))
+            rating_user=Count('ratings', filter=Q(ratings__ip=get_client_ip(request)))
         ).annotate(
             # middle_star=Sum(F('ratings__star'))/ Count(F('ratings'))
             middle_star=Avg('ratings__star')
@@ -44,3 +46,12 @@ class AddStarRatingView(APIView):
             return Response(status=201)
         else:
             return Response(status=400)
+
+
+class ActorAPIListView(ListAPIView):
+    queryset = Actor.objects.all()
+    serializer_class = ActorListSerializer
+
+class ActorAPIDetailView(RetrieveAPIView):
+    queryset = Actor.objects.all()
+    serializer_class = ActorDetailSerializer
