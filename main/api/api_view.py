@@ -11,6 +11,9 @@ class MovieApiListView(APIView):
     def get(self, request):
         movies = Movie.objects.filter(draft=False).annotate(
             rating_user = Count('ratings',filter=Q(ratings__ip=get_client_ip(request)))
+        ).annotate(
+            # middle_star=Sum(F('ratings__star'))/ Count(F('ratings'))
+            middle_star=Avg('ratings__star')
         )
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
