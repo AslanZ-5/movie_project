@@ -15,9 +15,10 @@ class RecursiveSerializer(serializers.Serializer):
 
 
 class MovieListSerializer(serializers.ModelSerializer):
+    rating_user = serializers.BooleanField()
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'tagline', 'category', 'actors')
+        fields = ('id', 'title', 'tagline', 'category','rating_user')
 
 
 class ReviewCreateSerializer(serializers.ModelSerializer):
@@ -55,12 +56,12 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 class CreateRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
-        fields = ('star','movie')
+        fields = ('star', 'movie')
 
-    def create(self,validated_data):
+    def create(self, validated_data):
         rating = Rating.objects.update_or_create(
-            ip = validated_data.get('ip',None),
-            movie = validated_data.get('movie',None),
-            defaults = {'star': validated_data.get("star")}
+            ip=validated_data.get('ip', None),
+            movie=validated_data.get('movie', None),
+            defaults={'star': validated_data.get("star")}
         )
         return rating

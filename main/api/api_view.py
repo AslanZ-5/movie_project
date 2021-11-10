@@ -3,11 +3,17 @@ from rest_framework.views import APIView
 from main.models import Movie
 from .serializers import MovieListSerializer, MovieDetailSerializer, ReviewCreateSerializer, CreateRatingSerializer
 from .service import get_client_ip
+from django.db.models import Case,When,BooleanField
+
 
 class MovieApiListView(APIView):
 
     def get(self, request):
-        movies = Movie.objects.filter(draft=False)
+        movies = Movie.objects.filter(draft=False).annotate(
+            rating_user = Case(When(ratings__ip=get_client_ip(request),then=True),
+                               default=False,
+                               output_field=BooleanField()),
+        )
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
 
@@ -29,8 +35,6 @@ class ReviewCreateView(APIView):
 
 
 class AddStarRatingView(APIView):
-
-
 
     def post(self, request):
         serializer = CreateRatingSerializer(data=request.data)
