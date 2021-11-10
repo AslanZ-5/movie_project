@@ -3,16 +3,14 @@ from rest_framework.views import APIView
 from main.models import Movie
 from .serializers import MovieListSerializer, MovieDetailSerializer, ReviewCreateSerializer, CreateRatingSerializer
 from .service import get_client_ip
-from django.db.models import Case,When,BooleanField
+from django.db.models import *
 
 
 class MovieApiListView(APIView):
 
     def get(self, request):
         movies = Movie.objects.filter(draft=False).annotate(
-            rating_user = Case(When(ratings__ip=get_client_ip(request),then=True),
-                               default=False,
-                               output_field=BooleanField()),
+            rating_user = Count('ratings',filter=Q(ratings__ip=get_client_ip(request)))
         )
         serializer = MovieListSerializer(movies, many=True)
         return Response(serializer.data)
