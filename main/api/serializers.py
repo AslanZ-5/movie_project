@@ -17,10 +17,11 @@ class RecursiveSerializer(serializers.Serializer):
 class MovieListSerializer(serializers.ModelSerializer):
     rating_user = serializers.BooleanField()
     middle_star = serializers.FloatField()
+    genres = serializers.SlugRelatedField(slug_field='name_en',read_only=True,many=True)
 
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'tagline', 'category', 'rating_user', 'middle_star')
+        fields = ('id', 'title', 'genres','tagline', 'year','category', 'rating_user', 'middle_star')
 
 
 class ActorListSerializer(serializers.ModelSerializer):
@@ -63,7 +64,7 @@ class MovieDetailSerializer(serializers.ModelSerializer):
         fields = ('title', 'tagline', 'description', 'poster', 'year'
                   , 'country', 'world_premiere', 'budget', 'fees_in_usa',
                   'fees_in_world', 'category', 'directors', 'actors',
-                  'genres', 'reviews'
+                  'genres', 'reviews','year'
                   )
 
 

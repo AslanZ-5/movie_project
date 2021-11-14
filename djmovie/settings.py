@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_framework',
+    'django_filters',
 
 ]
 
@@ -224,6 +225,12 @@ CKEDITOR_CONFIGS = {
             'youtube'
         ]),
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS':(
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 
 RECAPTCHA_PUBLIC_KEY = '6LfkTBcdAAAAAHh8wKHPmz95iLVt3x3vtjP8i0e0'
