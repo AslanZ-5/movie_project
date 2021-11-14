@@ -7,11 +7,13 @@ from .service import get_client_ip, MovieFilter
 from django.db.models import *
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import permissions
 
 class MovieApiListView(ListAPIView):
     serializer_class = MovieListSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = MovieFilter
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         movies = Movie.objects.filter(draft=False).annotate(

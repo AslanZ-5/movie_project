@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters',
+    'djoser',
 
 ]
 
@@ -228,10 +230,25 @@ CKEDITOR_CONFIGS = {
 }
 
 REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_FILTER_BACKENDS':(
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
 }
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL':'#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL':'#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL':'#activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
+}
+
+
 
 RECAPTCHA_PUBLIC_KEY = '6LfkTBcdAAAAAHh8wKHPmz95iLVt3x3vtjP8i0e0'
 RECAPTCHA_PRIVATE_KEY = '6LfkTBcdAAAAAJ0hDlySWXucRnnzpQydn4aTD9Zz'

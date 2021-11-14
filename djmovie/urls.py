@@ -7,6 +7,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/',include('main.api.api_urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('auth/',include('djoser.urls')),
+    path('auth/',include('djoser.urls.authtoken')),
     path('i18n/', include('django.conf.urls.i18n')),
 
 ]
