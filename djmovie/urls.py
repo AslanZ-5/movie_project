@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from .yasg import urlpatterns as yasg_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/',include('main.api.api_urls')),
@@ -18,6 +19,9 @@ urlpatterns += i18n_patterns(
     path('', include('main.urls')),
     path('contact/', include('contact.urls')),
 )
+
+urlpatterns += yasg_urls
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
