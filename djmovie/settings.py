@@ -160,7 +160,13 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'asl.zurabov@gmail.com'  # os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = 'soasadda006'  # os.environ.get('EMAIL_PASS')
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -231,24 +237,22 @@ CKEDITOR_CONFIGS = {
 
 REST_FRAMEWORK = {
 
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_FILTER_BACKENDS':(
+    'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
 }
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL':'#/password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL':'#/username/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL':'#activate/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
 }
-
-
 
 RECAPTCHA_PUBLIC_KEY = '6LfkTBcdAAAAAHh8wKHPmz95iLVt3x3vtjP8i0e0'
 RECAPTCHA_PRIVATE_KEY = '6LfkTBcdAAAAAJ0hDlySWXucRnnzpQydn4aTD9Zz'
