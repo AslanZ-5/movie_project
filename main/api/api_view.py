@@ -4,14 +4,16 @@ from django.shortcuts import get_object_or_404
 from main.models import Movie, Actor
 from .serializers import MovieListSerializer, MovieDetailSerializer, ReviewCreateSerializer, CreateRatingSerializer, \
     ActorListSerializer, ActorDetailSerializer
-from .service import get_client_ip, MovieFilter
+from .service import get_client_ip, MovieFilter, LargeResultsSetPagination
 from django.db.models import *
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import permissions
-from rest_framework.viewsets import ViewSet,ReadOnlyModelViewSet,ModelViewSet
+from rest_framework.viewsets import ViewSet, ReadOnlyModelViewSet, ModelViewSet
+
 
 class MovieViewSet(ReadOnlyModelViewSet):
+    pagination_class = LargeResultsSetPagination
     filter_backends = (DjangoFilterBackend,)
     filterset_class = MovieFilter
 
@@ -62,6 +64,8 @@ class MovieViewSet(ReadOnlyModelViewSet):
 
 class ReviewViewSet(ModelViewSet):
     serializer_class = ReviewCreateSerializer
+
+
 # class ReviewCreateView(CreateAPIView):
 #     serializer_class = ReviewCreateSerializer
 
